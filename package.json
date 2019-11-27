@@ -1,0 +1,21 @@
+{
+  "name": "use-async",
+  "version": "1.0.0",
+  "description": "A React hook for handling async functions",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "source": "index.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "author": "Kyle Thomson",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "microbundle": "^0.11.0",
+    "react": "^16.12.0"
+  }
+}
