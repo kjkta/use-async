@@ -14,6 +14,7 @@
   "author": "Kyle Thomson",
   "devDependencies": {
     "microbundle": "^0.11.0",
-    "react": "^16.12.0"
+    "react": "^16.12.0",
+    "release-it": "^12.4.3"
   }
 }
