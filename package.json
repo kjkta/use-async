@@ -1,5 +1,5 @@
 {
-  "name": "use-async",
+  "name": "use-async-status",
   "version": "1.0.0",
   "description": "A React hook for handling async functions",
   "license": "MIT",
@@ -8,12 +8,10 @@
   "module": "dist/index.mjs",
   "source": "index.js",
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch"
+    "build": "microbundle --external=react",
+    "dev": "yarn build --watch"
   },
   "author": "Kyle Thomson",
-  "license": "MIT",
-  "private": false,
   "devDependencies": {
     "microbundle": "^0.11.0",
     "react": "^16.12.0"

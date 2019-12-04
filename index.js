@@ -7,7 +7,7 @@ export const ASYNC_STATES = {
   ERROR: "ERROR"
 };
 
-export function useAsync(
+export function useAsyncStatus(
   asyncFn,
   successTimeout // How long SUCCESS state is active until reverting to IDLE
 ) {
