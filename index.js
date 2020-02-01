@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export const ASYNC_STATES = {
   IDLE: "IDLE",
@@ -14,7 +14,7 @@ export function useAsyncStatus(
   const [{ status, lastResult, lastError }, updateState] = React.useState({
     status: ASYNC_STATES.IDLE,
     lastResult: null,
-		lastError: null 
+    lastError: null
   });
 
   // Thing that calls the async function
@@ -37,7 +37,7 @@ export function useAsyncStatus(
       updateState(state => ({
         ...state,
         status: ASYNC_STATES.ERROR,
-				lastError: error
+        lastError: error
       }));
     }
   }
@@ -46,9 +46,8 @@ export function useAsyncStatus(
       ...state,
       status: ASYNC_STATES.IDLE,
       lastResult: null,
-			lastError: null
+      lastError: null
     }));
   }
-  return {trigger, status, lastResult, lastError, reset}
+  return { trigger, status, lastResult, lastError, reset };
 }
-

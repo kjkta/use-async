@@ -3,19 +3,31 @@
   "version": "2.0.0",
   "description": "A React hook for handling async functions",
   "license": "MIT",
-  "repository": "kjkta/use-async",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "source": "index.js",
+  "repository": {
+    "url": "https://github.com/kjkta/use-async-status"
+  },
   "scripts": {
-    "build": "microbundle --external=react",
-    "dev": "yarn build --watch"
+    "build": "microbundle",
+    "dev": "yarn build --watch",
+    "release": "yarn build && release-it --access=public"
   },
   "author": "Kyle Thomson",
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "microbundle": "^0.11.0",
-    "react": "^16.12.0",
+    "prettier": "^1.19.1",
+    "react": "^16.4.0",
     "release-it": "^12.4.3"
+  },
+  "peerDependencies": {
+    "react": "^16.4.0"
   }
 }
