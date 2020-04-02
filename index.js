@@ -33,12 +33,16 @@ export function useAsyncStatus(
           updateState(state => ({ ...state, status: ASYNC_STATES.IDLE }));
         }, successTimeout);
       }
+      // Return the result of the async function
+      return result
     } catch (error) {
       updateState(state => ({
         ...state,
         status: ASYNC_STATES.ERROR,
         lastError: error
       }));
+      // Return the error
+      return error
     }
   }
   function reset() {
