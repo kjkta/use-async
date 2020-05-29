@@ -1,6 +1,7 @@
 {
   "name": "use-async-status",
-  "version": "1.0.0",
+  "description": "A React hook for handling async functions",
+  "version": "3.0.0",
   "license": "MIT",
   "files": [
     "dist-*/",
@@ -10,6 +11,7 @@
   "sideEffects": false,
   "dependencies": {},
   "devDependencies": {
+    "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.3.4",
     "@pika/plugin-build-web": "^0.3.4",
     "@pika/plugin-ts-standard-pkg": "^0.3.4",
