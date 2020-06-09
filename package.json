@@ -1,10 +1,10 @@
 {
   "name": "use-async-status",
   "description": "A React hook for handling async functions",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "scripts": {
     "build": "pika build",
-    "publish": "pika publish",
+    "publish": "pika publish pkg",
     "version": "npm run build"
   },
   "license": "MIT",

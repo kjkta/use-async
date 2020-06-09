@@ -1,6 +1,6 @@
 import * as React from "react";
 
-enum AsyncStates {
+export enum AsyncStates {
   Idle = "Idle",
   Pending = "Pending",
   Success = "Success",
