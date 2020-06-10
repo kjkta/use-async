@@ -15,7 +15,8 @@ interface State {
 
 export function useAsyncStatus(
   asyncFn: Function,
-  successTimeout: number // How long Success state is active until reverting to Idle
+  asyncFnDependencies?: any[],
+  successTimeout?: number // How long Success state is active until reverting to Idle
 ) {
   const [{ status, lastResult, lastError }, updateState] = React.useState<
     State
@@ -24,6 +25,9 @@ export function useAsyncStatus(
     lastResult: null,
     lastError: null,
   });
+
+  // Apply dependencies if they are passed
+  asyncFn = React.useCallback(asyncFn, asyncFnDependencies)
 
   // Thing that calls the async function
   async function trigger(...args: any[]) {
