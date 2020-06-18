@@ -7,18 +7,22 @@ export enum AsyncStates {
   Error = "Error",
 }
 
-interface State {
+interface State<SuccessReturnValue, ErrorReturnValue> {
+  lastResult: SuccessReturnValue | null;
+  lastError: ErrorReturnValue | null;
   status: AsyncStates;
-  lastResult: any;
-  lastError: any;
 }
 
-export function useAsyncStatus(
-  asyncFn: (...args: unknown[]) => unknown,
+export function useAsyncStatus<SuccessReturnValue, ErrorReturnValue>(
+  asyncFn: (...args: any[]) => Promise<SuccessReturnValue>,
+  deps: React.DependencyList = [],
   successTimeout?: number // How long Success state is active until reverting to Idle
-) {
+): {
+  trigger: (...args: any[]) => Promise<SuccessReturnValue | ErrorReturnValue>;
+  reset: () => void;
+} & State<SuccessReturnValue, ErrorReturnValue> {
   const [{ status, lastResult, lastError }, updateState] = React.useState<
-    State
+    State<SuccessReturnValue, ErrorReturnValue>
   >({
     status: AsyncStates.Idle,
     lastResult: null,
@@ -26,38 +30,49 @@ export function useAsyncStatus(
   });
 
   // Thing that calls the async function
-  async function trigger(...args: any[]) {
-    updateState((state: State) => ({ ...state, status: AsyncStates.Pending }));
-    try {
-      const result = await asyncFn(...args);
-      updateState((state: State) => ({
+  const trigger = React.useCallback(
+    async function trigger(
+      ...args: any[]
+    ): Promise<SuccessReturnValue | ErrorReturnValue> {
+      updateState((state: State<SuccessReturnValue, ErrorReturnValue>) => ({
         ...state,
-        status: AsyncStates.Success,
-        lastResult: result,
+        status: AsyncStates.Pending,
       }));
-      if (successTimeout !== undefined) {
-        // Reset to Idle state
-        setTimeout(function () {
-          updateState((state: State) => ({
-            ...state,
-            status: AsyncStates.Idle,
-          }));
-        }, successTimeout);
+      try {
+        const result = await asyncFn(...args);
+        updateState((state: State<SuccessReturnValue, ErrorReturnValue>) => ({
+          ...state,
+          status: AsyncStates.Success,
+          lastResult: result,
+        }));
+        if (successTimeout !== undefined) {
+          // Reset to Idle state
+          setTimeout(function () {
+            updateState(
+              (state: State<SuccessReturnValue, ErrorReturnValue>) => ({
+                ...state,
+                status: AsyncStates.Idle,
+              })
+            );
+          }, successTimeout);
+        }
+        // Return the result of the async function
+        return result;
+      } catch (error) {
+        updateState((state: State<SuccessReturnValue, ErrorReturnValue>) => ({
+          ...state,
+          status: AsyncStates.Error,
+          lastError: error,
+        }));
+        // Return the error
+        return error;
       }
-      // Return the result of the async function
-      return result;
-    } catch (error) {
-      updateState((state: State) => ({
-        ...state,
-        status: AsyncStates.Error,
-        lastError: error,
-      }));
-      // Return the error
-      return error;
-    }
-  }
+    },
+    [successTimeout, ...deps]
+  );
+
   function reset() {
-    updateState((state: State) => ({
+    updateState((state: State<SuccessReturnValue, ErrorReturnValue>) => ({
       ...state,
       status: AsyncStates.Idle,
       lastResult: null,
