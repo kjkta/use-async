@@ -5,7 +5,6 @@
   "scripts": {
 "build:forIE": "echo '\n***Hack for supporting IE (ts-standard-pkg only supports es2020, see issue https://github.com/pikapkg/builders/issues/51#issuecomment-652372646)***\n' && tsc --outDir pkg/dist-web",
     "build": "pika build && yarn build:forIE",
-    "release": "pika publish pkg",
     "version": "npm run build"
   },
   "license": "MIT",
