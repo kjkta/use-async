@@ -71,13 +71,13 @@ export function useAsyncStatus<SuccessReturnValue, ErrorReturnValue>(
     [successTimeout, ...deps]
   );
 
-  function reset() {
+  const reset = React.useCallback(function reset() {
     updateState((state: State<SuccessReturnValue, ErrorReturnValue>) => ({
       ...state,
       status: AsyncStates.Idle,
       lastResult: null,
       lastError: null,
     }));
-  }
+  }, [])
   return { trigger, status, lastResult, lastError, reset };
 }
