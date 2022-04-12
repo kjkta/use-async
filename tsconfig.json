@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES5",
-    "module": "esnext",
     "strict": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
   "include": ["src/index.ts"],
   "exclude": ["node_modules", "**/__tests__/*"]
