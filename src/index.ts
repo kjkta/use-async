@@ -59,16 +59,17 @@ export function useAsyncStatus<SuccessReturnValue, ErrorReturnValue>(
         // Return the result of the async function
         return result;
       } catch (error) {
+        const caughtError = error as ErrorReturnValue
         updateState((state: State<SuccessReturnValue, ErrorReturnValue>) => ({
           ...state,
           status: AsyncStates.Error,
-          lastError: error,
+          lastError: caughtError,
         }));
         // Return the error
-        return error;
+        return caughtError;
       }
     },
-    [successTimeout, ...deps]
+    [successTimeout, updateState, ...deps]
   );
 
   const reset = React.useCallback(function reset() {
